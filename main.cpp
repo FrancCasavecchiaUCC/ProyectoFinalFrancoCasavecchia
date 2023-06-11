@@ -52,6 +52,7 @@ float ventaPublico(float precioSinImpuesto) {
     return precioVentaPublico;
 }
 
+//Agregar Productos
 void agregarProducto(std::vector<Vino>& vinos) {
     Vino nuevoVino;
 
@@ -66,11 +67,11 @@ void agregarProducto(std::vector<Vino>& vinos) {
     system("cls");
 
     std::cout << "\n--Fechas del Vino--\n" << std::endl;
-    std::cout << "Ingrese el anio de fabricación del vino (formato: AAAA): "<< std::endl;
+    std::cout << "Ingrese el anio de fabricacion del vino (formato: AAAA): "<< std::endl;
     std::cin >> nuevoVino.anioFabricacion[0];
-    std::cout << "Ingrese el mes de fabricación del vino (formato: MM): "<< std::endl;
+    std::cout << "Ingrese el mes de fabricacion del vino (formato: MM): "<< std::endl;
     std::cin >> nuevoVino.anioFabricacion[1];
-    std::cout << "Ingrese el día de fabricación del vino (formato: DD): "<< std::endl;
+    std::cout << "Ingrese el dia de fabricacion del vino (formato: DD): "<< std::endl;
     std::cin >> nuevoVino.anioFabricacion[2];
 
     std::cout << "Ingrese el anio de ingreso del vino (formato: AAAA): "<< std::endl;
@@ -81,7 +82,7 @@ void agregarProducto(std::vector<Vino>& vinos) {
 
     std::cout << "\n--Informacion para Supermercado--\n" << std::endl;
     std::cout << "Ingrese el tipo de vino: "<< std::endl;
-    std::getline(std::cin, nuevoVino.tipoVino);
+    std::cin >> nuevoVino.tipoVino;
 
     std::cout << "Ingrese el precio sin impuesto del vino: "<< std::endl;
     std::cin >> nuevoVino.precioSinImpuesto;
@@ -96,7 +97,7 @@ void agregarProducto(std::vector<Vino>& vinos) {
     std::cout << "Ingrese el DNI del proveedor: "<< std::endl;
     std::cin >> nuevoVino.dniProveedor;
 
-    std::cout << "Ingrese el teléfono del proveedor: "<< std::endl;
+    std::cout << "Ingrese el telefono del proveedor: "<< std::endl;
     std::cin >> nuevoVino.telefonoProveedor;
     system("cls");
 
@@ -104,6 +105,7 @@ void agregarProducto(std::vector<Vino>& vinos) {
     std::cout << "Producto agregado correctamente." << std::endl;
 }
 
+//Eliminar Productos
 void eliminarProducto(std::vector<Vino>& vinos, int codigo) {
     for (auto i = vinos.begin(); i != vinos.end(); ++i) {
         if (i->codigo == codigo) {
@@ -113,17 +115,18 @@ void eliminarProducto(std::vector<Vino>& vinos, int codigo) {
         }
     }
 
-    std::cout << "No se encontró un producto con el código especificado." << std::endl;
+    std::cout << "No se encontro un producto con el codigo especificado." << std::endl;
 }
 
+//Busqueda de productos por proveedor
 void mostrarProductoProveedor(std::vector<Vino>& vinos, int dni){
     for(auto i = vinos.begin(); i != vinos.end(); i++){
         if(i->dniProveedor == dni){
             std::cout << "------ Informacion del vino ------" << std::endl;
-            std::cout << "Código: " << i->codigo << std::endl;
+            std::cout << "Codigo: " << i->codigo << std::endl;
             std::cout << "Nombre: " << i->nombre << std::endl;
             std::cout << "Marca: " << i->marca << std::endl;
-            std::cout << "Año de fabricación: " << i->anioFabricacion[0] << "/" << i->anioFabricacion[1] << "/" << i->anioFabricacion[2] << std::endl;
+            std::cout << "Anio de fabricacion: " << i->anioFabricacion[0] << "/" << i->anioFabricacion[1] << "/" << i->anioFabricacion[2] << std::endl;
             std::cout << "Fecha de ingreso: " << i->fechaIngreso[0] << "/" << i->fechaIngreso[1] << std::endl;
             std::cout << "Tipo de vino: " << i->tipoVino << std::endl;
             std::cout << "Precio sin impuesto: " << i->precioSinImpuesto << std::endl;
@@ -135,25 +138,72 @@ void mostrarProductoProveedor(std::vector<Vino>& vinos, int dni){
     }
 }
 
+//Busqueda de productos segun el nombre del vino
 void mostrarProducto(std::vector<Vino>& vinos, std::string nombreVino){
     for (auto i = vinos.begin(); i != vinos.end(); ++i) {
         if (i->nombre == nombreVino) {
             std::cout << "------ Informacion del vino ------" << std::endl;
-            std::cout << "Código: " << i->codigo << std::endl;
+            std::cout << "Codigo: " << i->codigo << std::endl;
             std::cout << "Nombre: " << i->nombre << std::endl;
             std::cout << "Marca: " << i->marca << std::endl;
-            std::cout << "Año de fabricación: " << i->anioFabricacion[0] << "/" << i->anioFabricacion[1] << "/" << i->anioFabricacion[2] << std::endl;
+            std::cout << "Anio de fabricacion: " << i->anioFabricacion[0] << "/" << i->anioFabricacion[1] << "/" << i->anioFabricacion[2] << std::endl;
             std::cout << "Fecha de ingreso: " << i->fechaIngreso[0] << "/" << i->fechaIngreso[1] << std::endl;
             std::cout << "Tipo de vino: " << i->tipoVino << std::endl;
             std::cout << "Precio sin impuesto: " << i->precioSinImpuesto << std::endl;
-            std::cout << "Precio de venta al público: " << i->precioVentaPublico << std::endl;
+            std::cout << "Precio de venta al publico: " << i->precioVentaPublico << std::endl;
             std::cout << "Nombre del proveedor: " << i->nombreProveedor << std::endl;
-            std::cout << "Teléfono del proveedor: " << i->telefonoProveedor << std::endl;
+            std::cout << "Telefono del proveedor: " << i->telefonoProveedor << std::endl;
             return;
         }
     }
 
-    std::cout << "No se encontró un producto con el nombre especificado." << std::endl;
+    std::cout << "No se encontro un producto con el nombre especificado." << std::endl;
+}
+
+//Modificar precio del producto, busqueda por codigo del vino
+
+void modifPrecio(std::vector<Vino>& vinos, int codigo){
+    for (auto i = vinos.begin(); i != vinos.end(); ++i) {
+        if (i->codigo == codigo) {
+            std::cout << "Ingrese el nuevo precio sin impuesto del vino: "<< std::endl;
+            std::cin >> i->precioSinImpuesto;
+            if(i->precioSinImpuesto < 0){
+                std::cout << "El precio no puede ser negativo." << std::endl;
+                return;
+            }else{
+                i->precioVentaPublico = ventaPublico(i->precioSinImpuesto);
+                std::cout << "Precio modificado correctamente." << std::endl;
+                return;
+            }
+        }
+    }
+
+    std::cout << "No se encontro un producto con el codigo especificado." << std::endl;
+}
+
+//Modificar fecha de ingreso al supermercado de un determinado vino
+
+void modifDia(std::vector<Vino>& vinos, std::string nombreVino){
+    for (auto i = vinos.begin(); i != vinos.end(); i++){
+        if (i->nombre == nombreVino){
+            std::cout << "Ingrese el nuevo dia de ingreso del vino: "<< std::endl;
+            std::cin >> i->fechaIngreso[0];
+            if(i->fechaIngreso[0] < 0){
+                std::cout << "El dia no puede ser negativo." << std::endl;
+                return;
+            }else if(i->fechaIngreso[0] > 31){
+                std::cout << "El dia no puede ser mayor a 31." << std::endl;
+                return;
+            }else{
+                std::cout << "Dia modificado correctamente." << std::endl;
+                return;
+            }
+            std::cout << 
+
+        }
+
+
+    }
 }
 
 
@@ -199,6 +249,8 @@ int main() {
                 std::cout << "Ingrese el dni del proovedor: ";
                 std::cin >> dni;
                 mostrarProductoProveedor(vinos, dni);
+                system("pause");
+                system("cls");
                 break;
             case 4://BUSQUEDA POR VINO
                 system("cls");
@@ -206,10 +258,21 @@ int main() {
                 std::cout << "Ingrese el nombre del vino\n";
                 std::cin >> nombreVino;
                 mostrarProducto(vinos, nombreVino);
+                system("pause");
+                system("cls");
                 break;
             case 5://MODIFICAR PRECIO DEL PRODUCTO
+                system("cls");
+                std::cout << "\n--Modificar precio del producto--\n";
+                std::cout << "Ingrese el codigo del producto a modificar: ";
+                std::cin >> codigo;
+                modifPrecio(vinos, codigo);
+                system("cls");
                 break;
             case 6://MODIFICAR FECHA DE INGRESO AL SUPERMERCADO DE UN DETERMINADO VINO
+                system("cls");
+
+                system("cls");
                 break;
             case 7://IMPRIMIR PRODUCTOS
                 break;

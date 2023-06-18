@@ -99,26 +99,26 @@ void agregarProducto(std::vector<Vino>& vinos) {
     std::cout << "\n--Fechas del Vino--\n" << std::endl;
     // Ingresar y verifiacion de Fechas
     do {
-        std::cout << "Ingrese el año de fabricación del vino (formato: AAAA): ";
+        std::cout << "Ingrese el anio de fabricacion del vino (formato: AAAA): ";
         std::cin >> nuevoVino.anioFabricacion[0];
-        std::cout << "Ingrese el mes de fabricación del vino (formato: MM): ";
+        std::cout << "Ingrese el mes de fabricacion del vino (formato: MM): ";
         std::cin >> nuevoVino.anioFabricacion[1];
-        std::cout << "Ingrese el día de fabricación del vino (formato: DD): ";
+        std::cout << "Ingrese el dia de fabricacion del vino (formato: DD): ";
         std::cin >> nuevoVino.anioFabricacion[2];
 
         if (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2])) {
-            std::cout << "Fecha de fabricación inválida. Ingrese una fecha válida." << std::endl;
+            std::cout << "Fecha de fabricacion invalida. Ingrese una fecha valida." << std::endl;
         }
     } while (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2]));
 
     do {
-        std::cout << "Ingrese el año de ingreso del vino (formato: AAAA): ";
+        std::cout << "Ingrese el anio de ingreso del vino (formato: AAAA): ";
         std::cin >> nuevoVino.fechaIngreso[0];
         std::cout << "Ingrese el mes de ingreso del vino (formato: MM): ";
         std::cin >> nuevoVino.fechaIngreso[1];
 
         if (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1)) {
-            std::cout << "Fecha de ingreso inválida. Ingrese una fecha válida." << std::endl;
+            std::cout << "Fecha de ingreso invalida. Ingrese una fecha valida." << std::endl;
         }
     } while (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1));
 
@@ -253,7 +253,7 @@ void imprimirProductoPorNombre(const std::vector<Vino>& vinos, const std::string
     for (const auto& vino : vinos) {
         if (vino.nombre == nombreVino) {
             std::ostringstream nombreArchivo;
-            nombreArchivo << "archivos/" << vino.nombre << ".txt";
+            nombreArchivo << "../archivos/" << vino.nombre << ".txt";
 
             std::ofstream archivo(nombreArchivo.str());
 
@@ -291,7 +291,7 @@ void imprimirProveedor(const std::vector<Vino>& proveedores, const std::string& 
     for (const auto& vino : proveedores) {
         if (vino.nombre == nombreProveedor) {
             std::ostringstream nombreArchivo;
-            nombreArchivo << "archivos/" << vino.nombre << ".txt";
+            nombreArchivo << "../archivos/" << vino.nombre << ".txt";
 
             std::ofstream archivo(nombreArchivo.str());
 
@@ -309,7 +309,7 @@ void imprimirProveedor(const std::vector<Vino>& proveedores, const std::string& 
     }
 
     if (!proveedorEncontrado) {
-        std::cout << "No se encontró un proveedor con el nombre especificado." << std::endl;
+        std::cout << "No se encontro un proveedor con el nombre especificado." << std::endl;
     }
 }
 
@@ -365,6 +365,7 @@ int main() {
                 std::cout << "\n--Busqueda de producto(Nombre Vino)--\n";
                 std::cout << "Ingrese el nombre del vino\n";
                 std::cin >> nombreVino;
+                system("cls");
                 mostrarProducto(vinos, nombreVino);
                 system("pause");
                 system("cls");
@@ -406,7 +407,7 @@ int main() {
             case 9://TOTAL DE PRODUCTOS
                 break;
             case 0:
-                std::cout << "¿Está seguro que desea salir? (s/n): ";
+                std::cout << "¿Esta seguro que desea salir? (s/n): ";
                 std::cin >> opcion2;
                 if (opcion2 == "s") {
                     return 0;

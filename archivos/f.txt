@@ -1,0 +1,12 @@
+------ Informacion del vino ------
+Codigo: 1
+Nombre: f
+Marca: f
+Anio de fabricacion: 2000/2/2
+Fecha de ingreso: 2000/3
+Tipo de vino: f
+Precio sin impuesto: 123
+Precio de venta al publico: 141.45
+Nombre del proveedor: t
+Telefono del proveedor: 123
+---------------------------------

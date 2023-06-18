@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <fstream>
+#include <sstream>
 
 
 //Algunos de los requerimientos del supermercado son los siguientes:
@@ -14,7 +15,7 @@
 //6)tipo vino: malbec, tinto o blanco
 //7) precio sin impuesto
 //8) precio de venta al publico (+15%)
-//9) datos del proveedor: (nombre, telefono/
+//9) datos del proveedor: (nombre,dni,telefono)
 
 //1)
 //Agregar productos al sistema. en caso de que no existan ya.
@@ -27,7 +28,7 @@
 //8) Imprimir teléfono de un proveedor ---- genera un archivo.txt con los datos de un proveedor.
 //9) Total de productos --.
 //-- genera un archivo. txt con la info de todos los vinos y al final
-//muestra la suma total de todos sus precios de venta al publico.
+//muestra la suma total de todos sus precios de venta al publico
 
 
 struct Vino{
@@ -51,6 +52,34 @@ float ventaPublico(float precioSinImpuesto) {
     float precioVentaPublico = precioSinImpuesto * (1 + porcentajeImpuesto);
     return precioVentaPublico;
 }
+//Validacion de las fechas
+bool esFechaValida(int anio, int mes, int dia) {
+    // Año 1981-2099
+    if (anio < 1981) {
+        return false;
+    }
+    // Mes 1-12
+    if (mes < 1 || mes > 12) {
+        return false;
+    }
+    // Dia 1-31
+    if (dia < 1 || dia > 31) {
+        return false;
+    }
+    // Mes de 30 días
+    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) {
+        return false;
+    }
+    // Años bisiestos
+    if (mes == 2) {
+        bool esBisiesto = (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+        if ((esBisiesto && dia > 29) || (!esBisiesto && dia > 28)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 //Agregar Productos
 void agregarProducto(std::vector<Vino>& vinos) {
@@ -59,6 +88,7 @@ void agregarProducto(std::vector<Vino>& vinos) {
     nuevoVino.codigo = vinos.size() + 1;
 
     std::cout << "\n--Datos del vino--\n" << std::endl;
+    std::cout << "El codigo de este vino sera el siguiente: " << nuevoVino.codigo << std::endl;
     std::cout << "Ingrese el nombre del vino: "<< std::endl;
     std::cin >> nuevoVino.nombre;
 
@@ -67,17 +97,31 @@ void agregarProducto(std::vector<Vino>& vinos) {
     system("cls");
 
     std::cout << "\n--Fechas del Vino--\n" << std::endl;
-    std::cout << "Ingrese el anio de fabricacion del vino (formato: AAAA): "<< std::endl;
-    std::cin >> nuevoVino.anioFabricacion[0];
-    std::cout << "Ingrese el mes de fabricacion del vino (formato: MM): "<< std::endl;
-    std::cin >> nuevoVino.anioFabricacion[1];
-    std::cout << "Ingrese el dia de fabricacion del vino (formato: DD): "<< std::endl;
-    std::cin >> nuevoVino.anioFabricacion[2];
+    // Ingresar y verifiacion de Fechas
+    do {
+        std::cout << "Ingrese el año de fabricación del vino (formato: AAAA): ";
+        std::cin >> nuevoVino.anioFabricacion[0];
+        std::cout << "Ingrese el mes de fabricación del vino (formato: MM): ";
+        std::cin >> nuevoVino.anioFabricacion[1];
+        std::cout << "Ingrese el día de fabricación del vino (formato: DD): ";
+        std::cin >> nuevoVino.anioFabricacion[2];
 
-    std::cout << "Ingrese el anio de ingreso del vino (formato: AAAA): "<< std::endl;
-    std::cin >> nuevoVino.fechaIngreso[0];
-    std::cout << "Ingrese el mes de ingreso del vino (formato: MM): "<< std::endl;
-    std::cin >> nuevoVino.fechaIngreso[1];
+        if (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2])) {
+            std::cout << "Fecha de fabricación inválida. Ingrese una fecha válida." << std::endl;
+        }
+    } while (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2]));
+
+    do {
+        std::cout << "Ingrese el año de ingreso del vino (formato: AAAA): ";
+        std::cin >> nuevoVino.fechaIngreso[0];
+        std::cout << "Ingrese el mes de ingreso del vino (formato: MM): ";
+        std::cin >> nuevoVino.fechaIngreso[1];
+
+        if (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1)) {
+            std::cout << "Fecha de ingreso inválida. Ingrese una fecha válida." << std::endl;
+        }
+    } while (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1));
+
     system("cls");
 
     std::cout << "\n--Informacion para Supermercado--\n" << std::endl;
@@ -183,37 +227,101 @@ void modifPrecio(std::vector<Vino>& vinos, int codigo){
 
 //Modificar fecha de ingreso al supermercado de un determinado vino
 
-void modifDia(std::vector<Vino>& vinos, std::string nombreVino){
-    for (auto i = vinos.begin(); i != vinos.end(); i++){
-        if (i->nombre == nombreVino){
-            std::cout << "Ingrese el nuevo dia de ingreso del vino: "<< std::endl;
+void modifDia(std::vector<Vino>& vinos, std::string nombreVino) {
+    for (auto i = vinos.begin(); i != vinos.end(); i++)
+        if (i->nombre == nombreVino) {
+            std::cout << "Ingrese el nuevo dia de ingreso del vino: " << std::endl;
             std::cin >> i->fechaIngreso[0];
-            if(i->fechaIngreso[0] < 0){
+            if (i->fechaIngreso[0] < 0) {
                 std::cout << "El dia no puede ser negativo." << std::endl;
                 return;
-            }else if(i->fechaIngreso[0] > 31){
+            } else if (i->fechaIngreso[0] > 31) {
                 std::cout << "El dia no puede ser mayor a 31." << std::endl;
                 return;
-            }else{
+            } else {
                 std::cout << "Dia modificado correctamente." << std::endl;
                 return;
             }
-            std::cout << 
 
         }
+    }
 
+//Imprimir un solo producto
+void imprimirProductoPorNombre(const std::vector<Vino>& vinos, const std::string& nombreVino) {
+    bool productoEncontrado = false;
 
+    for (const auto& vino : vinos) {
+        if (vino.nombre == nombreVino) {
+            std::ostringstream nombreArchivo;
+            nombreArchivo << "archivos/" << vino.nombre << ".txt";
+
+            std::ofstream archivo(nombreArchivo.str());
+
+            archivo << "------ Informacion del vino ------" << std::endl;
+            archivo << "Codigo: " << vino.codigo << std::endl;
+            archivo << "Nombre: " << vino.nombre << std::endl;
+            archivo << "Marca: " << vino.marca << std::endl;
+            archivo << "Anio de fabricacion: " << vino.anioFabricacion[0] << "/"
+                    << vino.anioFabricacion[1] << "/" << vino.anioFabricacion[2] << std::endl;
+            archivo << "Fecha de ingreso: " << vino.fechaIngreso[0] << "/"
+                    << vino.fechaIngreso[1] << std::endl;
+            archivo << "Tipo de vino: " << vino.tipoVino << std::endl;
+            archivo << "Precio sin impuesto: " << vino.precioSinImpuesto << std::endl;
+            archivo << "Precio de venta al publico: " << vino.precioVentaPublico << std::endl;
+            archivo << "Nombre del proveedor: " << vino.nombreProveedor << std::endl;
+            archivo << "Telefono del proveedor: " << vino.telefonoProveedor << std::endl;
+            archivo << "---------------------------------" << std::endl;
+
+            archivo.close();
+
+            productoEncontrado = true;
+            break;
+        }
+    }
+
+    if (!productoEncontrado) {
+        std::cout << "No se encontró un producto con el nombre especificado." << std::endl;
     }
 }
 
+// Función para imprimir los datos de un proveedor y guardarlos en un archivo
+void imprimirProveedor(const std::vector<Vino>& proveedores, const std::string& nombreProveedor) {
+    bool proveedorEncontrado = false;
+
+    for (const auto& vino : proveedores) {
+        if (vino.nombre == nombreProveedor) {
+            std::ostringstream nombreArchivo;
+            nombreArchivo << "archivos/" << vino.nombre << ".txt";
+
+            std::ofstream archivo(nombreArchivo.str());
+
+            archivo << "------ Informacion del proveedor ------" << std::endl;
+            archivo << "Nombre: " << vino.telefonoProveedor << std::endl;
+            archivo << "Telefono: " << vino.telefonoProveedor << std::endl;
+            archivo << "Direccion: " << vino.dniProveedor << std::endl;
+            archivo << "--------------------------------------" << std::endl;
+
+            archivo.close();
+
+            proveedorEncontrado = true;
+            break;
+        }
+    }
+
+    if (!proveedorEncontrado) {
+        std::cout << "No se encontró un proveedor con el nombre especificado." << std::endl;
+    }
+}
 
 int main() {
+    //Variables de uso para distintas busquedas en el sistema
     std::vector <Vino> vinos;
     int opcion1;
     std::string opcion2;
     int codigo;
     int dni;
     std::string nombreVino;
+    std::string nombreProveedor;
 
     do {
         std::cout << "------ Menu ------" << std::endl;
@@ -271,12 +379,29 @@ int main() {
                 break;
             case 6://MODIFICAR FECHA DE INGRESO AL SUPERMERCADO DE UN DETERMINADO VINO
                 system("cls");
+                std::cout << "\n--Modificar fecha de ingreso al supermercado de un determinado vino--\n";
+                std::cout << "Ingrese el nombre del vino: ";
+                std::cin >> nombreVino;
+                modifDia(vinos, nombreVino);
 
                 system("cls");
                 break;
             case 7://IMPRIMIR PRODUCTOS
+                system("cls");
+                std::cout << "\n--Imprimir un producto--\n";
+                std::cout << "Ingrese el nombre del vino a imprimir: ";
+                std::cin >> nombreVino;
+                imprimirProductoPorNombre(vinos, nombreVino);
+                system("pause");
+                system("cls");
                 break;
             case 8://IMPRIMIR TELEFONO DE UN PROVEEDOR
+                system("cls");
+                std::cout << "Ingrese el nombre del proveedor: ";
+                std::cin >> nombreProveedor;
+                imprimirProveedor(vinos, nombreProveedor);
+                system("pause");
+                system("cls");
                 break;
             case 9://TOTAL DE PRODUCTOS
                 break;

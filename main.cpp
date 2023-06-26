@@ -3,7 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-
+#include <algorithm>
 
 //Algunos de los requerimientos del supermercado son los siguientes:
 //por cada botella de vino se tiene la siguiente informacion:
@@ -52,18 +52,26 @@ float ventaPublico(float precioSinImpuesto) {
     float precioVentaPublico = precioSinImpuesto * (1 + porcentajeImpuesto);
     return precioVentaPublico;
 }
+
+//Convertir a Mayusculas
+std::string convertirAMayusculas(const std::string& texto) {
+    std::string textoMayusculas = texto;
+    std::transform(textoMayusculas.begin(), textoMayusculas.end(), textoMayusculas.begin(), ::toupper);
+    return textoMayusculas;
+}
+
 //Validacion de las fechas
 bool esFechaValida(int anio, int mes, int dia) {
     // Año 1981-2099
-    if (anio < 1981) {
+    if (anio < 1981 || anio > 2023  ) {
         return false;
     }
     // Mes 1-12
-    if (mes < 1 || mes > 12) {
+    if (mes < 1 || mes > 12 ) {
         return false;
     }
     // Dia 1-31
-    if (dia < 1 || dia > 31) {
+    if (dia < 1 || dia > 31 ) {
         return false;
     }
     // Mes de 30 días
@@ -79,6 +87,53 @@ bool esFechaValida(int anio, int mes, int dia) {
     }
     return true;
 }
+
+//De precios y datos del proveedor
+
+bool validarPrecio(float precioSinImpuesto) {
+    if (precioSinImpuesto < 0) {
+        return false;
+    }
+    return true;
+}
+
+//Validacion de tipo de vino
+bool validarTipoVino(const std::string tipoVino) {
+    std::string tipoVinoFuncion = convertirAMayusculas(tipoVino);
+    if (tipoVinoFuncion == "MALBEC" || tipoVinoFuncion == "TINTO" || tipoVinoFuncion == "BLANCO") {
+        return true;
+    }
+    return false;
+}
+
+//Validacion fecha de creacion con fecha de ingreso
+
+bool validarFechaIngreso(int anioFabricacion[3], int fechaIngreso[2]) {
+    if (anioFabricacion[0] > fechaIngreso[0]) {
+        return false;
+    }
+    if (anioFabricacion[0] == fechaIngreso[0] && anioFabricacion[1] > fechaIngreso[1]) {
+        return false;
+    }
+    return true;
+}
+
+//Validacion de DNI
+bool validarDNI(int dni) {
+    if (dni < 1000000 || dni > 99999999) {
+        return false;
+    }
+    return true;
+}
+
+//Validacion de telefono
+bool validarTelefono(int telefono) {
+    if (telefono < 1 || telefono > 999999999) {
+        return false;
+    }
+    return true;
+}
+
 
 
 //Agregar Productos
@@ -97,52 +152,106 @@ void agregarProducto(std::vector<Vino>& vinos) {
     system("cls");
 
     std::cout << "\n--Fechas del Vino--\n" << std::endl;
+
     // Ingresar y verifiacion de Fechas
     do {
-        std::cout << "Ingrese el anio de fabricacion del vino (formato: AAAA): ";
-        std::cin >> nuevoVino.anioFabricacion[0];
-        std::cout << "Ingrese el mes de fabricacion del vino (formato: MM): ";
-        std::cin >> nuevoVino.anioFabricacion[1];
-        std::cout << "Ingrese el dia de fabricacion del vino (formato: DD): ";
-        std::cin >> nuevoVino.anioFabricacion[2];
+        do {
+            std::cout << "Ingrese el anio de fabricacion del vino (formato: AAAA): ";
+            std::cin >> nuevoVino.anioFabricacion[0];
+            std::cout << "Ingrese el mes de fabricacion del vino (formato: MM): ";
+            std::cin >> nuevoVino.anioFabricacion[1];
+            std::cout << "Ingrese el dia de fabricacion del vino (formato: DD): ";
+            std::cin >> nuevoVino.anioFabricacion[2];
 
-        if (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2])) {
-            std::cout << "Fecha de fabricacion invalida. Ingrese una fecha valida." << std::endl;
+            if (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2])) {
+                std::cout << "Fecha de fabricacion invalida. Ingrese una fecha valida." << std::endl;
+                std::cout <<" "<< std::endl;
+            }
+        } while (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2]));
+
+        do {
+            system("cls");
+            std::cout << "Ingrese el anio de ingreso del vino (formato: AAAA): ";
+            std::cin >> nuevoVino.fechaIngreso[0];
+            std::cout << "Ingrese el mes de ingreso del vino (formato: MM): ";
+            std::cin >> nuevoVino.fechaIngreso[1];
+
+            if (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1)) {
+                std::cout << "Fecha de ingreso invalida. Ingrese una fecha valida." << std::endl;
+                std::cout <<" "<< std::endl;
+            }
+        } while (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1));
+
+        if (!validarFechaIngreso(nuevoVino.anioFabricacion, nuevoVino.fechaIngreso)) {
+            std::cout << "Fecha de ingreso invalida(Fecha de creacion o de ingreso al supermercado incorrecta). Ingrese una fecha valida." << std::endl;
+            std::cout <<" "<< std::endl;
         }
-    } while (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2]));
-
-    do {
-        std::cout << "Ingrese el anio de ingreso del vino (formato: AAAA): ";
-        std::cin >> nuevoVino.fechaIngreso[0];
-        std::cout << "Ingrese el mes de ingreso del vino (formato: MM): ";
-        std::cin >> nuevoVino.fechaIngreso[1];
-
-        if (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1)) {
-            std::cout << "Fecha de ingreso invalida. Ingrese una fecha valida." << std::endl;
+        else {
+            std::cout << "Fecha de ingreso valida" << std::endl;
+            std::cout <<" "<< std::endl;
         }
-    } while (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1));
+
+    }while(!validarFechaIngreso(nuevoVino.anioFabricacion, nuevoVino.fechaIngreso));
+
 
     system("cls");
 
-    std::cout << "\n--Informacion para Supermercado--\n" << std::endl;
-    std::cout << "Ingrese el tipo de vino: "<< std::endl;
-    std::cin >> nuevoVino.tipoVino;
+    do {
+        std::cout << "\n--Informacion para Supermercado--\n" << std::endl;
+        std::cout << "Ingrese el tipo de vino: "<< std::endl;
+        std::cout << "Los tipos de vinos son, Malbec, Blanco, Tinto "<< std::endl;
+        std::cin >> nuevoVino.tipoVino;
+        if (validarTipoVino(nuevoVino.tipoVino)) {
+            std::cout << "Tipo de vino Valido" << std::endl;
+        }else {
+            std::cout << "Tipo de vino invalido. Ingrese un tipo de vino valido."  << std::endl;
+        }
 
-    std::cout << "Ingrese el precio sin impuesto del vino: "<< std::endl;
-    std::cin >> nuevoVino.precioSinImpuesto;
+    }while(!validarTipoVino(nuevoVino.tipoVino));
 
-    nuevoVino.precioVentaPublico = ventaPublico(nuevoVino.precioSinImpuesto);
+    do {
+        std::cout << "Ingrese el precio sin impuesto del vino: "<< std::endl;
+        std::cin >> nuevoVino.precioSinImpuesto;
+        nuevoVino.precioVentaPublico = ventaPublico(nuevoVino.precioSinImpuesto);
+
+        if(!validarPrecio(nuevoVino.precioSinImpuesto)){
+            std::cout << "Precio ingresado correctamente." << std::endl;
+        }else{
+            std::cout << "Precio invalido. Ingrese un precio valido." << std::endl;
+        }
+
+    }while(!validarPrecio(nuevoVino.precioSinImpuesto));
+
+
+
     system("cls");
 
     std::cout << "\n--Datos Proveedor--\n" << std::endl;
     std::cout << "Ingrese el nombre del proveedor: "<< std::endl;
     std::cin >> nuevoVino.nombreProveedor;
 
-    std::cout << "Ingrese el DNI del proveedor: "<< std::endl;
-    std::cin >> nuevoVino.dniProveedor;
+    do {
+        std::cout << "Ingrese el DNI del proveedor: "<< std::endl;
+        std::cin >> nuevoVino.dniProveedor;
 
-    std::cout << "Ingrese el telefono del proveedor: "<< std::endl;
-    std::cin >> nuevoVino.telefonoProveedor;
+        if (!validarDNI(nuevoVino.dniProveedor)) {
+            std::cout << "DNI invalido. Ingrese un DNI valido." << std::endl;
+        }else {
+            std::cout << "DNI valido" << std::endl;
+        }
+    }while(!validarDNI(nuevoVino.dniProveedor));
+
+    do {
+        std::cout << "Ingrese el telefono del proveedor: "<< std::endl;
+        std::cin >> nuevoVino.telefonoProveedor;
+
+        if (!validarTelefono(nuevoVino.telefonoProveedor)) {
+            std::cout << "Telefono invalido. Ingrese un telefono valido." << std::endl;
+        }else {
+            std::cout << "Telefono valido" << std::endl;
+        }
+    }while(!validarTelefono(nuevoVino.telefonoProveedor));
+
     system("cls");
 
     vinos.push_back(nuevoVino);
@@ -176,6 +285,7 @@ void mostrarProductoProveedor(std::vector<Vino>& vinos, int dni){
             std::cout << "Precio sin impuesto: " << i->precioSinImpuesto << std::endl;
             std::cout << "Precio de venta al publico: " << i->precioVentaPublico << std::endl;
             std::cout << "Nombre del proveedor: " << i->nombreProveedor << std::endl;
+            std::cout << "DNI del proveedor: " << i->dniProveedor << std::endl;
             std::cout << "Telefono del proveedor: " << i->telefonoProveedor << std::endl;
             return;
         }
@@ -196,6 +306,7 @@ void mostrarProducto(std::vector<Vino>& vinos, std::string nombreVino){
             std::cout << "Precio sin impuesto: " << i->precioSinImpuesto << std::endl;
             std::cout << "Precio de venta al publico: " << i->precioVentaPublico << std::endl;
             std::cout << "Nombre del proveedor: " << i->nombreProveedor << std::endl;
+            std::cout << "DNI del proveedor: " << i->dniProveedor << std::endl;
             std::cout << "Telefono del proveedor: " << i->telefonoProveedor << std::endl;
             return;
         }
@@ -227,24 +338,35 @@ void modifPrecio(std::vector<Vino>& vinos, int codigo){
 
 //Modificar fecha de ingreso al supermercado de un determinado vino
 
-void modifDia(std::vector<Vino>& vinos, std::string nombreVino) {
-    for (auto i = vinos.begin(); i != vinos.end(); i++)
-        if (i->nombre == nombreVino) {
-            std::cout << "Ingrese el nuevo dia de ingreso del vino: " << std::endl;
-            std::cin >> i->fechaIngreso[0];
-            if (i->fechaIngreso[0] < 0) {
-                std::cout << "El dia no puede ser negativo." << std::endl;
-                return;
-            } else if (i->fechaIngreso[0] > 31) {
-                std::cout << "El dia no puede ser mayor a 31." << std::endl;
-                return;
-            } else {
-                std::cout << "Dia modificado correctamente." << std::endl;
-                return;
-            }
 
+void modificarIngresoVino(std::vector<Vino>& vinos, int codigo) {
+    for (auto i = vinos.begin(); i != vinos.end(); ++i) {
+        if (i->codigo == codigo) {
+            bool fechaValida = false;
+            do {
+                system("cls");
+                std::cout << "Fecha de ingreso actual: " << i->fechaIngreso[0] << "-" << i->fechaIngreso[1] << std::endl;
+                std::cout << "Ingrese el nuevo anio de ingreso del vino (formato: AAAA): ";
+                std::cin >> i->fechaIngreso[0];
+                std::cout << "Ingrese el nuevo mes de ingreso del vino (formato: MM): ";
+                std::cin >> i->fechaIngreso[1];
+
+                if (!esFechaValida(i->fechaIngreso[0], i->fechaIngreso[1], 1)) {
+                    std::cout << "Fecha de ingreso invalida. Ingrese una fecha valida." << std::endl;
+                    std::cout << std::endl;
+                } else {
+                    fechaValida = true;
+                }
+            } while (!fechaValida);
+
+            std::cout << "Fecha de ingreso modificada correctamente." << std::endl;
+            return;
         }
     }
+
+    std::cout << "No se encontró un producto con el código especificado." << std::endl;
+}
+
 
 //Imprimir un solo producto
 void imprimirProductoPorNombre(const std::vector<Vino>& vinos, const std::string& nombreVino) {
@@ -269,6 +391,7 @@ void imprimirProductoPorNombre(const std::vector<Vino>& vinos, const std::string
             archivo << "Precio sin impuesto: " << vino.precioSinImpuesto << std::endl;
             archivo << "Precio de venta al publico: " << vino.precioVentaPublico << std::endl;
             archivo << "Nombre del proveedor: " << vino.nombreProveedor << std::endl;
+            archivo<< "DNI del proveedor: " << vino.dniProveedor << std::endl;
             archivo << "Telefono del proveedor: " << vino.telefonoProveedor << std::endl;
             archivo << "---------------------------------" << std::endl;
 
@@ -289,9 +412,9 @@ void imprimirProveedor(const std::vector<Vino>& proveedores, const std::string& 
     bool proveedorEncontrado = false;
 
     for (const auto& vino : proveedores) {
-        if (vino.nombre == nombreProveedor) {
+        if (vino.nombreProveedor == nombreProveedor) {
             std::ostringstream nombreArchivo;
-            nombreArchivo << "../archivos/" << vino.nombre << ".txt";
+            nombreArchivo << "../archivos/" << vino.nombreProveedor << ".txt";
 
             std::ofstream archivo(nombreArchivo.str());
 
@@ -381,7 +504,7 @@ int main() {
             case 6://MODIFICAR FECHA DE INGRESO AL SUPERMERCADO DE UN DETERMINADO VINO
                 system("cls");
                 std::cout << "\n--Modificar fecha de ingreso al supermercado de un determinado vino--\n";
-                std::cout << "Ingrese el nombre del vino: ";
+                std::cout << "Ingrese el -- del vino: ";
                 std::cin >> nombreVino;
                 modifDia(vinos, nombreVino);
 

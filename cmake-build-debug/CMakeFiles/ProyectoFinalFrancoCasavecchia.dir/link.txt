@@ -1,0 +1,3 @@
+"D:\Program Files\CLion 2023.1.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\ProyectoFinalFrancoCasavecchia.dir/objects.a
+"D:\Program Files\CLion 2023.1.3\bin\mingw\bin\ar.exe" qc CMakeFiles\ProyectoFinalFrancoCasavecchia.dir/objects.a @CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\objects1
+"D:\Program Files\CLion 2023.1.3\bin\mingw\bin\g++.exe" -g -Wl,--whole-archive CMakeFiles\ProyectoFinalFrancoCasavecchia.dir/objects.a -Wl,--no-whole-archive -o ProyectoFinalFrancoCasavecchia.exe -Wl,--out-implib,libProyectoFinalFrancoCasavecchia.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\linkLibs.rsp

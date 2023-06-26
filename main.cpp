@@ -339,19 +339,20 @@ void modifPrecio(std::vector<Vino>& vinos, int codigo){
 //Modificar fecha de ingreso al supermercado de un determinado vino
 
 
-void modificarIngresoVino(std::vector<Vino>& vinos, int codigo) {
+void modificarIngresoVino(std::vector<Vino>& vinos, const std::string& nombreVino) {
     for (auto i = vinos.begin(); i != vinos.end(); ++i) {
-        if (i->codigo == codigo) {
+        if (i->nombre == nombreVino) {
             bool fechaValida = false;
             do {
                 system("cls");
+                std::cout << "Fecha de creacion del vino: " << i->fechaIngreso[0] << "-" << i->fechaIngreso[1] << std::endl;
                 std::cout << "Fecha de ingreso actual: " << i->fechaIngreso[0] << "-" << i->fechaIngreso[1] << std::endl;
                 std::cout << "Ingrese el nuevo anio de ingreso del vino (formato: AAAA): ";
                 std::cin >> i->fechaIngreso[0];
                 std::cout << "Ingrese el nuevo mes de ingreso del vino (formato: MM): ";
                 std::cin >> i->fechaIngreso[1];
 
-                if (!esFechaValida(i->fechaIngreso[0], i->fechaIngreso[1], 1)) {
+                if (!esFechaValida(i->fechaIngreso[0], i->fechaIngreso[1], 1) || !validarFechaIngreso(i->anioFabricacion, i->fechaIngreso)) {
                     std::cout << "Fecha de ingreso invalida. Ingrese una fecha valida." << std::endl;
                     std::cout << std::endl;
                 } else {
@@ -364,7 +365,7 @@ void modificarIngresoVino(std::vector<Vino>& vinos, int codigo) {
         }
     }
 
-    std::cout << "No se encontró un producto con el código especificado." << std::endl;
+    std::cout << "No se encontró un producto con el nombre especificado." << std::endl;
 }
 
 
@@ -436,6 +437,35 @@ void imprimirProveedor(const std::vector<Vino>& proveedores, const std::string& 
     }
 }
 
+// Función para imprimir los datos de los productos y de los proveedores y guardarlos en un archivo
+void imprimirTodo(const std::vector<Vino>& vinos) {
+    std::ostringstream nombreArchivo;
+    nombreArchivo << "../archivos/" << "productos.txt";
+
+    std::ofstream archivo(nombreArchivo.str());
+
+    archivo << "------ Informacion de los productos ------" << std::endl;
+
+    for (const auto& vino : vinos) {
+        archivo << "Codigo: " << vino.codigo << std::endl;
+        archivo << "Nombre: " << vino.nombre << std::endl;
+        archivo << "Marca: " << vino.marca << std::endl;
+        archivo << "Anio de fabricacion: " << vino.anioFabricacion[0] << "/"
+                << vino.anioFabricacion[1] << "/" << vino.anioFabricacion[2] << std::endl;
+        archivo << "Fecha de ingreso: " << vino.fechaIngreso[0] << "/"
+                << vino.fechaIngreso[1] << std::endl;
+        archivo << "Tipo de vino: " << vino.tipoVino << std::endl;
+        archivo << "Precio sin impuesto: " << vino.precioSinImpuesto << std::endl;
+        archivo << "Precio de venta al publico: " << vino.precioVentaPublico << std::endl;
+        archivo << "Nombre del proveedor: " << vino.nombreProveedor << std::endl;
+        archivo<< "DNI del proveedor: " << vino.dniProveedor << std::endl;
+        archivo << "Telefono del proveedor: " << vino.telefonoProveedor << std::endl;
+        archivo << "---------------------------------" << std::endl;
+    }
+
+    archivo.close();
+}
+
 int main() {
     //Variables de uso para distintas busquedas en el sistema
     std::vector <Vino> vinos;
@@ -504,10 +534,9 @@ int main() {
             case 6://MODIFICAR FECHA DE INGRESO AL SUPERMERCADO DE UN DETERMINADO VINO
                 system("cls");
                 std::cout << "\n--Modificar fecha de ingreso al supermercado de un determinado vino--\n";
-                std::cout << "Ingrese el -- del vino: ";
+                std::cout << "Ingrese el nombre del vino: ";
                 std::cin >> nombreVino;
-                modifDia(vinos, nombreVino);
-
+                modificarIngresoVino(vinos, nombreVino);
                 system("cls");
                 break;
             case 7://IMPRIMIR PRODUCTOS
@@ -516,6 +545,7 @@ int main() {
                 std::cout << "Ingrese el nombre del vino a imprimir: ";
                 std::cin >> nombreVino;
                 imprimirProductoPorNombre(vinos, nombreVino);
+                std::cout << "Se ha guardado la informacion en el archivo " << nombreVino << ".txt" << std::endl;
                 system("pause");
                 system("cls");
                 break;
@@ -524,10 +554,17 @@ int main() {
                 std::cout << "Ingrese el nombre del proveedor: ";
                 std::cin >> nombreProveedor;
                 imprimirProveedor(vinos, nombreProveedor);
+                std::cout << "Se ha guardado la informacion en el archivo " << nombreProveedor << ".txt" << std::endl;
                 system("pause");
                 system("cls");
                 break;
             case 9://TOTAL DE PRODUCTOS
+                system("cls");
+                std::cout << "El total de productos es: " << vinos.size() << std::endl;
+                imprimirTodo(vinos);
+                std::cout << "Se ha guardado la informacion en el archivo productos.txt" << std::endl;
+                system("pause");
+                system("cls");
                 break;
             case 0:
                 std::cout << "¿Esta seguro que desea salir? (s/n): ";

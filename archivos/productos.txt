@@ -1,4 +1,4 @@
------- Informacion del vino ------
+------ Informacion de los productos ------
 Codigo: 1
 Nombre: 123
 Marca: 123

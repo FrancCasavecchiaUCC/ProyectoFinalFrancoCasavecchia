@@ -1,5 +1,0 @@
------- Informacion del proveedor ------
-Nombre: 123
-Telefono: 123
-Direccion: 12312312
---------------------------------------

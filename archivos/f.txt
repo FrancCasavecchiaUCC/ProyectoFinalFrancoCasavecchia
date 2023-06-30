@@ -1,0 +1,13 @@
+------ Informacion del vino ------
+Codigo: 1
+Nombre: f
+Marca: f
+Anio de fabricacion: 2003/12/12
+Fecha de ingreso: 2004/12
+Tipo de vino: Malbec
+Precio sin impuesto: 456
+Precio de venta al publico: 524.4
+Nombre del proveedor: F
+DNI del proveedor: 12312312
+Telefono del proveedor: 123
+---------------------------------

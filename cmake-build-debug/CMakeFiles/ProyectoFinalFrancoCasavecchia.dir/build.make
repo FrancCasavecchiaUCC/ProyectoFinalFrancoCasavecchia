@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\Program Files\CLion 2023.1.3\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2022.3.3\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\Program Files\CLion 2023.1.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2022.3.3\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia
+CMAKE_SOURCE_DIR = C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/depend.make
@@ -70,18 +70,18 @@ include CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/flags.make
 
 CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj: CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/flags.make
 CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj: CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/includes_CXX.rsp
-CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj: C:/Users/Tomi/Documents/GitHub/ProyectoFinalFrancoCasavecchia/main.cpp
+CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj: C:/Users/franc/OneDrive/Documentos/GitHub/ProyectoFinalFrancoCasavecchia/main.cpp
 CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj: CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj"
-	"D:\Program Files\CLion 2023.1.3\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj -MF CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.obj.d -o CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.obj -c C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.obj -MF CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.obj.d -o CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.obj -c C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\main.cpp
 
 CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.i"
-	"D:\Program Files\CLion 2023.1.3\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\main.cpp > CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\main.cpp > CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.i
 
 CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/main.cpp.s"
-	"D:\Program Files\CLion 2023.1.3\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\main.cpp -o CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.3\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\main.cpp -o CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\main.cpp.s
 
 # Object files for target ProyectoFinalFrancoCasavecchia
 ProyectoFinalFrancoCasavecchia_OBJECTS = \
@@ -95,7 +95,7 @@ ProyectoFinalFrancoCasavecchia.exe: CMakeFiles/ProyectoFinalFrancoCasavecchia.di
 ProyectoFinalFrancoCasavecchia.exe: CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/linkLibs.rsp
 ProyectoFinalFrancoCasavecchia.exe: CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/objects1
 ProyectoFinalFrancoCasavecchia.exe: CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ProyectoFinalFrancoCasavecchia.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ProyectoFinalFrancoCasavecchia.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -107,6 +107,6 @@ CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/clean:
 .PHONY : CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/clean
 
 CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug C:\Users\Tomi\Documents\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug\CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug C:\Users\franc\OneDrive\Documentos\GitHub\ProyectoFinalFrancoCasavecchia\cmake-build-debug\CMakeFiles\ProyectoFinalFrancoCasavecchia.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ProyectoFinalFrancoCasavecchia.dir/depend
 

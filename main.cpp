@@ -135,11 +135,7 @@ bool validarTelefono(int telefono) {
 }
 
 // Función para verificar si se ingresó un punto incorrectamente en las fechas
-bool verificarPunto(int anio, int mes, int dia) {
-    std::string fecha = std::to_string(anio) + "." + std::to_string(mes) + "." + std::to_string(dia);
-    size_t puntoPos = fecha.find(".");
-    return puntoPos != std::string::npos && puntoPos != fecha.size() - 1;
-}
+
 
 
 //Agregar Productos
@@ -173,11 +169,8 @@ void agregarProducto(std::vector<Vino>& vinos) {
                 std::cout << "Fecha de fabricacion invalida. Ingrese una fecha valida." << std::endl;
                 std::cout << " " << std::endl;
             }
-            else if (verificarPunto(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2])) {
-                std::cout << "Fecha de fabricacion invalida. No debe haber un punto decimal en la fecha. Ingrese una fecha valida." << std::endl;
-                std::cout << " " << std::endl;
-            }
-        } while (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2]) || verificarPunto(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2]));
+
+        } while (!esFechaValida(nuevoVino.anioFabricacion[0], nuevoVino.anioFabricacion[1], nuevoVino.anioFabricacion[2]));
 
         do {
             system("cls");
@@ -190,11 +183,7 @@ void agregarProducto(std::vector<Vino>& vinos) {
                 std::cout << "Fecha de ingreso invalida. Ingrese una fecha valida." << std::endl;
                 std::cout << " " << std::endl;
             }
-            else if (verificarPunto(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1)) {
-                std::cout << "Fecha de ingreso invalida. No debe haber un punto decimal en la fecha. Ingrese una fecha valida." << std::endl;
-                std::cout << " " << std::endl;
-            }
-        } while (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1) || verificarPunto(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1));
+        } while (!esFechaValida(nuevoVino.fechaIngreso[0], nuevoVino.fechaIngreso[1], 1));
 
         if (!validarFechaIngreso(nuevoVino.anioFabricacion, nuevoVino.fechaIngreso)) {
             std::cout << "Fecha de ingreso invalida (Fecha de creacion o de ingreso al supermercado incorrecta). Ingrese una fecha valida." << std::endl;
